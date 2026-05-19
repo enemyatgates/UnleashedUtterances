@@ -1,9 +1,9 @@
 ---
 title: Hello, World!
 excerpt: A sample post to test the system.
-author: enemyatgates
+author: fucker singh
 date: 2026-05-19T00:00:00.000Z
-template: default
+template: CommonDefault
 theme: light
 tier: free
 ---
