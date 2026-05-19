@@ -1,0 +1,138 @@
+.page {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+}
+
+.sidebar {
+  width: 200px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 2rem 1.25rem;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.sidebarTitle {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.sidebarMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sidebarItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.sidebarKey {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.sidebarValue {
+  font-size: 0.85rem;
+  color: var(--fg);
+}
+
+.content {
+  flex: 1;
+  padding: 2.5rem 3rem;
+  max-width: 760px;
+}
+
+.coverImage {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  color: var(--fg);
+}
+
+.excerpt {
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 1.25rem 0 1.5rem;
+}
+
+.body {
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.body h2 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 2rem 0 0.5rem;
+  color: var(--fg);
+}
+
+.body h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.4rem;
+  color: var(--accent);
+}
+
+.body p { margin-bottom: 0.75rem; }
+
+.body blockquote {
+  border-left: 3px solid var(--accent);
+  padding: 0.4rem 1rem;
+  margin: 1rem 0;
+  color: var(--muted);
+  background: var(--surface);
+}
+
+.body pre {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  margin: 1rem 0;
+}
+
+.body code {
+  background: var(--surface);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.85em;
+  color: var(--accent);
+}
+
+.body a { color: var(--accent); }
