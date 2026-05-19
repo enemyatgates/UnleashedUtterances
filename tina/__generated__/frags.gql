@@ -1,0 +1,13 @@
+fragment PostParts on Post {
+  __typename
+  title
+  excerpt
+  author
+  date
+  template
+  theme
+  custom_css
+  tier
+  cover_image
+  body
+}
