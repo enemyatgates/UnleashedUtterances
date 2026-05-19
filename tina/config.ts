@@ -47,6 +47,56 @@ export default defineConfig({
             required: true,
           },
           {
+            type: "string",
+            name: "excerpt",
+            label: "Excerpt",
+            ui: { component: "textarea" },
+          },
+          {
+            type: "string",
+            name: "author",
+            label: "Author",
+            required: true,
+          },
+          {
+            type: "datetime",
+            name: "date",
+            label: "Published Date",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "template",
+            label: "Template",
+            options: ["default", "marp", "notion", "joplin"],
+            required: true,
+          },
+          {
+            type: "string",
+            name: "theme",
+            label: "Theme",
+            options: ["light", "dark", "sepia", "minimal", "bold"],
+            required: true,
+          },
+          {
+            type: "string",
+            name: "custom_css",
+            label: "Custom CSS File",
+            description: "Optional: filename from /public/styles/posts/",
+          },
+          {
+            type: "string",
+            name: "tier",
+            label: "Content Tier",
+            options: ["free", "premium"],
+            required: true,
+          },
+          {
+            type: "image",
+            name: "cover_image",
+            label: "Cover Image",
+          },
+          {
             type: "rich-text",
             name: "body",
             label: "Body",
@@ -54,8 +104,7 @@ export default defineConfig({
           },
         ],
         ui: {
-          // This is an DEMO router. You can remove this to fit your site
-          router: ({ document }) => `/demo/blog/${document._sys.filename}`,
+          router: ({ document }) => `/blog/${document._sys.filename}`,
         },
       },
     ],
