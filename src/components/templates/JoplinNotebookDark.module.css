@@ -1,0 +1,122 @@
+.notebook {
+  display: flex;
+  min-height: 100vh;
+  background: #0a0a0a;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+.spine {
+  width: 24px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #1a1a2e 0px,
+    #1a1a2e 2px,
+    #111124 2px,
+    #111124 16px
+  );
+  flex-shrink: 0;
+  border-right: 1px solid #2a2a4a;
+}
+
+.page {
+  flex: 1;
+  background: #0f0f1a;
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 23px,
+    #1a1a2e 23px,
+    #1a1a2e 24px
+  );
+  padding: 3rem 4rem;
+  max-width: 760px;
+}
+
+.header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #2a2a4a;
+}
+
+.coverImage {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  margin-bottom: 1.5rem;
+  opacity: 0.75;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #e0e0f0;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.excerpt {
+  font-size: 0.95rem;
+  color: #6060a0;
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+.meta {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.78rem;
+  color: #4040608;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #505080;
+}
+
+.body {
+  font-size: 0.95rem;
+  line-height: 1.9;
+  color: #c0c0d8;
+}
+
+.body h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 2.5rem 0 0.75rem;
+  color: #8080ff;
+}
+
+.body h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1.75rem 0 0.5rem;
+  color: #6060c0;
+}
+
+.body p { margin-bottom: 0.85rem; }
+
+.body blockquote {
+  border-left: 2px solid #4040a0;
+  padding: 0.5rem 1.25rem;
+  margin: 1.5rem 0;
+  color: #6060a0;
+  font-style: italic;
+  background: rgba(64,64,160,0.08);
+}
+
+.body pre {
+  background: #080810;
+  border: 1px solid #2a2a4a;
+  border-radius: 4px;
+  padding: 1.25rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+}
+
+.body code {
+  background: #080810;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.85em;
+  color: #8080ff;
+}
+
+.body a { color: #6060c0; }

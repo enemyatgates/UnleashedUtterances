@@ -1,0 +1,109 @@
+.page {
+  background: #f8f4ec;
+  color: #3b2f2f;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
+  min-height: 100vh;
+}
+
+.cover {
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+}
+
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(20%);
+}
+
+.pageContent {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 3.5rem 2rem 6rem;
+}
+
+.title {
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+  color: #2a1f1f;
+  letter-spacing: -0.01em;
+}
+
+.excerpt {
+  font-size: 1.15rem;
+  color: #7a6a5a;
+  margin-bottom: 1rem;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.meta {
+  display: flex;
+  gap: 0.6rem;
+  font-size: 0.875rem;
+  color: #9a8a7a;
+  margin-bottom: 1.5rem;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #d4c5a9;
+  margin: 1.5rem 0 2rem;
+}
+
+.body {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: #3b2f2f;
+}
+
+.body h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 2.5rem 0 0.75rem;
+  color: #2a1f1f;
+  border-bottom: 1px solid #d4c5a9;
+  padding-bottom: 0.4rem;
+}
+
+.body h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 1.75rem 0 0.5rem;
+  color: #5a3e3e;
+}
+
+.body p { margin-bottom: 1rem; }
+
+.body blockquote {
+  border-left: 3px solid #c8a97a;
+  padding: 0.5rem 1.25rem;
+  margin: 1.5rem 0;
+  color: #7a6a5a;
+  font-style: italic;
+  background: #f0ead8;
+}
+
+.body pre {
+  background: #ede8df;
+  border: 1px solid #d4c5a9;
+  border-radius: 4px;
+  padding: 1.25rem;
+  overflow-x: auto;
+  font-family: monospace;
+  font-size: 0.875rem;
+}
+
+.body code {
+  background: #ede8df;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.85em;
+  color: #8b4513;
+}
+
+.body a { color: #8b4513; text-decoration: underline; }
