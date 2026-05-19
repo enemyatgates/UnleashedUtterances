@@ -1,5 +1,11 @@
 ---
 title: Hello, World!
+excerpt: A sample post to test the system.
+author: enemyatgates
+date: 2026-05-19T00:00:00.000Z
+template: default
+theme: light
+tier: free
 ---
 
 ## Hello World!
