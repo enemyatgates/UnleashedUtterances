@@ -1,0 +1,598 @@
+
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+
+  .schedule-wrap {
+    padding: 1.5rem 0;
+    font-family: var(--font-sans);
+  }
+
+  .phase-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin: 2rem 0 0.75rem;
+  }
+
+  .phase-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .phase-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+
+  .phase-time {
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .entry {
+    display: grid;
+    grid-template-columns: 68px 1fr;
+    gap: 0 16px;
+    padding: 9px 0;
+    border-top: 0.5px solid var(--color-border-tertiary);
+    align-items: start;
+    cursor: pointer;
+    transition: background 0.15s;
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .entry:hover { background: var(--color-background-secondary); }
+  .entry.ritual { background: var(--color-background-secondary); }
+
+  .entry-time {
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+    font-variant-numeric: tabular-nums;
+    padding-top: 2px;
+    padding-left: 4px;
+  }
+
+  .entry-main {}
+
+  .entry-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 2px;
+  }
+
+  .entry-sub {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+  }
+
+  .ritual-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 1px 7px;
+    border-radius: 3px;
+    margin-left: 8px;
+    vertical-align: middle;
+    background: var(--color-background-warning);
+    color: var(--color-text-warning);
+  }
+
+  .law-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 1px 7px;
+    border-radius: 3px;
+    margin-left: 8px;
+    vertical-align: middle;
+    background: var(--color-background-info);
+    color: var(--color-text-info);
+  }
+
+  .detail-panel {
+    display: none;
+    margin: 8px 0 4px 84px;
+    padding: 12px 14px;
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-md);
+    border-left: 2px solid var(--color-border-secondary);
+  }
+
+  .detail-panel.open { display: block; }
+
+  .detail-panel p {
+    margin: 0 0 6px;
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .detail-panel p:last-child { margin-bottom: 0; }
+
+  .detail-panel blockquote {
+    margin: 8px 0 0;
+    padding: 0 0 0 10px;
+    border-left: 2px solid var(--color-border-primary);
+    font-size: 12px;
+    font-style: italic;
+    color: var(--color-text-tertiary);
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--color-border-secondary);
+    margin: 2rem 0 0;
+    opacity: 0.6;
+  }
+
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .filter-btn {
+    font-size: 12px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 0.5px solid var(--color-border-secondary);
+    background: transparent;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .filter-btn:hover { background: var(--color-background-secondary); }
+  .filter-btn.active {
+    background: var(--color-text-primary);
+    color: var(--color-background-primary);
+    border-color: transparent;
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+
+  .stat {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 10px 12px;
+    text-align: center;
+  }
+
+  .stat-val {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    display: block;
+  }
+
+  .stat-lbl {
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 2px;
+    display: block;
+  }
+
+  .phase-I    { background: #EAF3DE; color: #3B6D11; }
+  .phase-II   { background: #E6F1FB; color: #185FA5; }
+  .phase-III  { background: #FAEEDA; color: #854F0B; }
+  .phase-IV   { background: #EEEDFE; color: #534AB7; }
+  .phase-R    { background: #FAECE7; color: #993C1D; }
+
+  @media (prefers-color-scheme: dark) {
+    .phase-I   { background: #27500A; color: #C0DD97; }
+    .phase-II  { background: #0C447C; color: #B5D4F4; }
+    .phase-III { background: #633806; color: #FAC775; }
+    .phase-IV  { background: #3C3489; color: #CECBF6; }
+    .phase-R   { background: #712B13; color: #F5C4B3; }
+  }
+
+  .progress-bar-wrap {
+    display: flex;
+    height: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    gap: 2px;
+  }
+
+  .pb-seg {
+    height: 100%;
+    border-radius: 1px;
+    transition: flex 0.3s;
+  }
+
+  .toggle-hint {
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    margin-bottom: 1rem;
+    text-align: right;
+  }
+</style>
+
+<div class="schedule-wrap">
+  <h2 style="sr-only">Pi-Hour Daily Schedule — 03:14 to 22:07</h2>
+
+  <div class="stat-row">
+    <div class="stat"><span class="stat-val">19h 53m</span><span class="stat-lbl">Total window</span></div>
+    <div class="stat"><span class="stat-val">32</span><span class="stat-lbl">Scheduled entries</span></div>
+    <div class="stat"><span class="stat-val">4</span><span class="stat-lbl">Phases</span></div>
+    <div class="stat"><span class="stat-val">2</span><span class="stat-lbl">Rituals</span></div>
+  </div>
+
+  <div class="progress-bar-wrap">
+    <div class="pb-seg" style="flex:167;background:#639922"></div>
+    <div class="pb-seg" style="flex:360;background:#378ADD"></div>
+    <div class="pb-seg" style="flex:300;background:#BA7517"></div>
+    <div class="pb-seg" style="flex:307;background:#7F77DD"></div>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterPhase('all', this)">All phases</button>
+    <button class="filter-btn" onclick="filterPhase('I', this)">I · Isolation</button>
+    <button class="filter-btn" onclick="filterPhase('II', this)">II · Construction</button>
+    <button class="filter-btn" onclick="filterPhase('III', this)">III · Friction</button>
+    <button class="filter-btn" onclick="filterPhase('IV', this)">IV · Reflection</button>
+    <button class="filter-btn" onclick="filterPhase('R', this)">Rituals</button>
+  </div>
+
+  <p class="toggle-hint">Click any entry to expand its doctrine note.</p>
+
+  <div id="schedule-body"></div>
+</div>
+
+<script>
+const PHASES = [
+  { id: 'R', label: 'Opening Ritual', timeRange: '03:14', color: 'phase-R' },
+  { id: 'I', label: 'Phase I — Isolation & Awakening', timeRange: '03:14 – 06:00', color: 'phase-I' },
+  { id: 'II', label: 'Phase II — Construction & Execution', timeRange: '06:00 – 12:00', color: 'phase-II' },
+  { id: 'III', label: 'Phase III — Friction & Endurance', timeRange: '12:00 – 17:00', color: 'phase-III' },
+  { id: 'IV', label: 'Phase IV — Reflection & Closure', timeRange: '17:00 – 22:07', color: 'phase-IV' },
+  { id: 'R2', label: 'Closing Ritual', timeRange: '22:07', color: 'phase-R' },
+];
+
+const ENTRIES = [
+  {
+    phase: 'R', time: '03:14',
+    title: 'Opening Ritual — The Drink & The Smoke',
+    sub: 'Sit. No movement, no phone, no sound except what already exists. The drink: taken slowly, with total awareness of the act of receiving. The smoke: observed as it leaves — the first lesson in impermanence.',
+    tags: ['ritual'],
+    detail: 'This is not comfort. This is the body signing the contract. The drink is absorption — you are choosing to descend into the day with open eyes. The smoke is transition — from the unconscious body that slept to the intentional mind that begins. When the ritual ends, there is no ambiguity. You have chosen to be here.',
+    quote: 'I consume with intent. I let go without resistance.'
+  },
+  {
+    phase: 'I', time: '03:20',
+    title: 'Stillness audit — state assessment',
+    sub: 'Sit with what is actually present in the mind. Not what should be there. Not yesterday\'s residue repackaged as today\'s agenda. What is the actual cognitive and emotional weather right now?',
+    tags: ['law:silent-observation'],
+    detail: 'The observer is not a conscience. It is a recorder. Before beginning any structured work, you must know what you are working with. A practitioner who begins Phase I without this audit is building on unexamined ground. Spend five to eight minutes. Do not write yet — just note.',
+    quote: 'Most failures of discipline are not dramatic collapses. They are quiet drifts.'
+  },
+  {
+    phase: 'I', time: '03:30',
+    title: 'Long-horizon thinking — the 5-year frame',
+    sub: 'No tasks. No today. What is being built across years? What is the large project that the day\'s work serves? Hold this frame for at least 20 minutes without collapsing it into immediate action.',
+    tags: ['law:intentional-entry'],
+    detail: 'Phase I is where long-term thinking happens, by structural mandate. The practitioner who skips this becomes permanently reactive — always operating in the present tense, responding to what is in front of him, never building the architecture of what he intends to construct over decades. The long horizon is not a luxury. It is the navigation system.'
+  },
+  {
+    phase: 'I', time: '03:55',
+    title: 'Deep reading — primary text',
+    sub: 'One book, one paper, one document that demands full cognitive engagement. Not skimming. Not consumption. Reading as adversarial engagement with an idea — pushing back, annotating internally, identifying the weaknesses.',
+    tags: [],
+    detail: 'Reading at this hour serves a precise function: it is input at the moment when the mind\'s processing capacity is freshest and its filtering mechanisms least corrupted by accumulated decision fatigue. Read the hardest thing first. The difficult text that has been deferred to a better time will never find a better time than 03:55.'
+  },
+  {
+    phase: 'I', time: '04:30',
+    title: 'Free writing — unstructured output',
+    sub: 'Write without a destination. Follow the thought wherever it goes. No editing, no self-censorship, no concern for the quality of the output. The function here is excavation — surfacing what is actually being thought beneath the layer of managed presentation.',
+    tags: [],
+    detail: 'Writing at this stage is thinking made explicit. It forces the formlessness of late-night cognition into the discipline of language, and in doing so, reveals what was only half-formed. Most significant insights do not arrive complete — they arrive as fragments that the act of writing assembles. Do not stop before 20 minutes.'
+  },
+  {
+    phase: 'I', time: '05:00',
+    title: 'Strategic architecture — today\'s intention',
+    sub: 'Translate the long-horizon frame into today\'s specific commitments. What are the three things — not ten — that will move the primary project forward? Write them as statements of intention, not task-list items.',
+    tags: ['law:intentional-entry'],
+    detail: 'The difference between a task and an intention: a task is what is done. An intention is why it is done and what it is in service of. "Write the section on market positioning" is a task. "Move the proposal closer to a state that could survive serious scrutiny" is an intention. The task is the vehicle. The intention is the direction.',
+    quote: 'A system entered passively is not a system. It is a schedule.'
+  },
+  {
+    phase: 'I', time: '05:25',
+    title: 'Physical preparation — movement',
+    sub: 'Not exercise as performance or health optimisation. Movement as the body\'s confirmation that it is participating in the day. 25 to 35 minutes. Deliberate, without music or distraction. This is where the body enters the doctrine.',
+    tags: [],
+    detail: 'The mind has been engaged for over two hours. The body is still operating on sleep inertia. Movement at this hour is the integration — bringing the physical into the same state of deliberate awareness that the mind entered at 03:14. Sweat is optional. Presence is not.'
+  },
+  {
+    phase: 'I', time: '06:00',
+    title: 'Phase I closes — transition acknowledgement',
+    sub: 'Stop. Mark the boundary. Acknowledge that Phase I is complete and Phase II begins. This takes 60 seconds. It is not optional.',
+    tags: ['law:intentional-entry'],
+    detail: 'Each phase boundary is crossed deliberately. There is no drifting from one phase to the next. At 06:00, the practitioner pauses — physically and cognitively — and states the transition. The aperture of Phase I closes. The aperture of Phase II opens. Without this acknowledgement, the phases blur and the structure dissolves.'
+  },
+  {
+    phase: 'II', time: '06:00',
+    title: 'Primary work — first block (deep)',
+    sub: 'The highest-value creative or analytical work of the day. The thing that only you can do, that requires your best attention, that will move the primary project forward in ways that cannot be replicated in any other phase.',
+    tags: ['law:ruthless-focus'],
+    detail: 'Deploy cognitive resources at peak capacity. This is not administrative work. This is not email. This is not the management of other people\'s urgencies. This is the primary work — the thing that, if left undone, would meaningfully compromise the goals set across weeks, months, years. Protect it. Close every other channel. One thing.',
+    quote: 'Focus is not the absence of other options. It is the refusal to pursue them.'
+  },
+  {
+    phase: 'II', time: '07:30',
+    title: 'Capture & integrate — first break',
+    sub: '10 minutes. Review what was produced in the first block. Note what remains unresolved. Place non-primary thoughts into the capture system. Do not begin anything new yet.',
+    tags: [],
+    detail: 'The capture system is not a to-do list. It is the container for everything that arrived during Phase II but does not belong in Phase II. These thoughts are real and they will return unless they are written somewhere that can be trusted. Written down, they release their pressure on the working mind.'
+  },
+  {
+    phase: 'II', time: '07:45',
+    title: 'Primary work — second block (deep)',
+    sub: 'Return to the primary work. The second block often produces different material than the first — less initial discovery, more structural refinement. Both are necessary. Follow the work where it needs to go.',
+    tags: ['law:ruthless-focus'],
+    detail: 'The second deep block is where the practitioner earns the doctrine. The first block runs on the morning\'s energy and novelty. The second block runs on commitment. It is less romantic and more important. This is where discipline is actually exercised — not in the excited beginning but in the continued return.'
+  },
+  {
+    phase: 'II', time: '09:15',
+    title: 'Strategic communications — essential only',
+    sub: 'Open external communication for the first time today. Process only what genuinely requires today\'s response. Reply with precision. Close the channel again. Do not linger.',
+    tags: ['law:ruthless-focus'],
+    detail: 'The world has been communicating without you for six hours. Most of it will have resolved, become irrelevant, or answered itself. Of what remains, identify what truly requires your engagement today. Respond with the minimum necessary words that carry the full necessary weight. Then close it.',
+    quote: 'Each interruption does not cost the duration of the distraction. It costs the recovery time.'
+  },
+  {
+    phase: 'II', time: '09:45',
+    title: 'Primary work — third block (synthesis)',
+    sub: 'The third block is for synthesis and integration: assembling the morning\'s output into coherent form. What has been produced? What does it mean in the context of the larger project? What is the next logical step?',
+    tags: [],
+    detail: 'Synthesis is not editing. It is the higher-order act of understanding what has been built and placing it correctly in the architecture of the larger project. Most practitioners skip this step and move directly from production to the next task. This is the difference between building a pile of bricks and building a wall.'
+  },
+  {
+    phase: 'II', time: '11:00',
+    title: 'Learning input — structured study',
+    sub: 'One hour dedicated to acquiring information or capability that serves the primary project across the medium term. Not the same text as Phase I — this is technical, domain-specific, deliberate acquisition.',
+    tags: [],
+    detail: 'The distinction between Phase I reading and Phase II learning: Phase I reading is for broad conceptual engagement — the territory-mapping of a thinking mind. Phase II learning is targeted acquisition — the skill or knowledge that the primary project specifically requires and that you do not yet fully possess.'
+  },
+  {
+    phase: 'II', time: '12:00',
+    title: 'Phase II closes — mid-day reckoning',
+    sub: 'Before eating: a 5-minute assessment of the morning. What was produced? Was the intention from 05:25 honoured? No self-congratulation, no self-flagellation. Clear-eyed accounting.',
+    tags: ['law:silent-observation'],
+    detail: 'The mid-day reckoning is not a performance review. It is a navigational check. The practitioner who does not take stock at noon cannot correct course in the afternoon. The observer has been running since 03:20. This is the first formal access to its data.'
+  },
+  {
+    phase: 'III', time: '12:10',
+    title: 'Sustenance — deliberate meal',
+    sub: 'Eat. Not while working. Not while reading. Not while attending to a screen. Eating is the body\'s Phase III ritual — the physical equivalent of the mid-day reckoning. 30 minutes.',
+    tags: [],
+    detail: 'The practitioner who eats without awareness is the same practitioner who makes decisions without awareness. The quality of attention brought to the smallest act determines the quality of attention available for the largest ones. This is not asceticism. It is economy.'
+  },
+  {
+    phase: 'III', time: '12:45',
+    title: 'Operational processing — communications sweep',
+    sub: 'Process the full communication load. Email, messages, requests, updates. Reply, delegate, defer, or delete. Create no new primary work here. This is management, not creation.',
+    tags: ['law:controlled-chaos'],
+    detail: 'Phase III is not where primary work happens. It is where the infrastructure of the primary work is maintained. The practitioner who resents this is fighting the natural arc of cognitive capacity. The afternoon belongs to endurance and operation. Accept this. Deploy the afternoon accordingly. Fighting it is wasteful.'
+  },
+  {
+    phase: 'III', time: '13:30',
+    title: 'Collaborative work — meetings and coordination',
+    sub: 'External engagement: the calls, the meetings, the synchronisation with other people\'s work. Bring full presence. Listen more than you speak. Observe the dynamics of the room with the same quality of attention that Phase I applies to the self.',
+    tags: ['law:silent-observation'],
+    detail: 'The silent observer does not switch off during social engagement. It watches how you perform, how others respond, where decisions are actually made versus where they appear to be made, what is not being said but is clearly being communicated. The data from this observation enters Phase IV review.'
+  },
+  {
+    phase: 'III', time: '14:30',
+    title: 'Secondary project work — lower cognitive threshold',
+    sub: 'Tasks that are real and necessary but do not require the quality of attention that Phase II demanded. Research tasks, iterative refinement of existing work, planning documents, logistical coordination.',
+    tags: [],
+    detail: 'Not all valuable work is high-cognitive-load work. Phase III is the appropriate home for necessary tasks that do not depend on being at peak. The practitioner who attempts to force Phase II work quality into Phase III is not disciplined. He is depleting reserves that are needed for Phase IV\'s review.'
+  },
+  {
+    phase: 'III', time: '15:30',
+    title: 'Controlled deviation window',
+    sub: 'Thirty minutes of unstructured time. Not idle — intentionally unstructured. The mind may go where it goes. Connections form in the spaces between focused work. This is the doctrine\'s acknowledged chaos.',
+    tags: ['law:controlled-chaos'],
+    detail: 'Controlled chaos is not tolerance for disorder. It is the building of order robust enough to contain disorder without collapsing. This window exists because the doctrine\'s practitioner is not a machine. The 3.14 register — intuition, unexpected connection, non-linear insight — requires space that the structure does not otherwise provide.',
+    quote: 'I know the difference between moving through the infinite and operating within the approximate.'
+  },
+  {
+    phase: 'III', time: '16:00',
+    title: 'Administrative close — capture and triage',
+    sub: 'Process the day\'s capture system. Every item from the capture log: is it real? Does it belong tomorrow? Does it belong to the long-horizon frame? Does it need to be discarded? Triage takes 30 minutes. No longer.',
+    tags: [],
+    detail: 'The capture system functions only if it is processed regularly. Items that accumulate in the capture log without review become a secondary anxiety — a growing list of unaddressed obligations that creates background cognitive load. Clear the log daily. What remains in the system after triage is real work. What is removed was noise.'
+  },
+  {
+    phase: 'III', time: '16:30',
+    title: 'Physical recovery — second movement',
+    sub: 'Move again. Different from the morning movement — this is not activation but maintenance. A walk, stretching, brief physical activity. 30 minutes. Without screens.',
+    tags: [],
+    detail: 'The body has been stationary for six hours of Phase II and III cognitive work. Sedentary cognitive labour produces cortisol accumulation, postural degradation, and declining attentional quality. The second movement interrupts all three. It also marks the transition — the body\'s preparation for Phase IV, where the quality of review depends on a calm physiological state.'
+  },
+  {
+    phase: 'III', time: '17:00',
+    title: 'Phase III closes — friction accounting',
+    sub: 'What friction arrived today that was not anticipated? Where did the doctrine bend? Mark these moments. Do not evaluate them yet — that belongs to Phase IV. Simply note: here is where today pushed back.',
+    tags: ['law:silent-observation'],
+    detail: 'The observer has been recording since 03:20. By 17:00 it has collected approximately 13 hours of data. The friction accounting is not yet an evaluation — it is the organisation of the recording before the review begins. What needs to be examined in Phase IV? Bring it forward into clear visibility.'
+  },
+  {
+    phase: 'IV', time: '17:00',
+    title: 'Creative work — evening block (different register)',
+    sub: 'A deliberate return to creative engagement, but in a different register than Phase II. Phase II primary work is analytical and structural. This block may be more speculative, associative, experimental. It serves the larger project from a different angle.',
+    tags: [],
+    detail: 'The evening block exists because some kinds of thinking are better done in the afternoon\'s low-cortisol, slightly-fatigued state. Inhibitions are lower. The over-controlling analytical mind that dominates the morning is quieter. Ideas arrive that would have been immediately suppressed at 06:00 as insufficiently rigorous. Not all of them are wrong.'
+  },
+  {
+    phase: 'IV', time: '18:30',
+    title: 'Second strategic communications sweep',
+    sub: 'The final communications window of the day. Process only what genuinely cannot wait until tomorrow. Set appropriate expectations for response times. Decline what does not belong in your system. Close the channel.',
+    tags: ['law:closure'],
+    detail: 'The Law of Closure begins its approach. External communications that are not processed by 18:30 do not get processed today. This is not avoidance. It is the structural refusal to allow other people\'s urgencies to consume the reflective capacity that Phase IV requires. Most things that feel urgent at 18:30 are not urgent by morning.'
+  },
+  {
+    phase: 'IV', time: '19:00',
+    title: 'Reading — secondary text (broader horizon)',
+    sub: 'A different kind of reading than Phase I. Less adversarial, more receptive. History, philosophy, literature, biography. Material that places the day\'s work in the context of something larger than the current project.',
+    tags: [],
+    detail: 'The practitioner who reads only within his domain of expertise builds a house without windows. The evening reading exists to remind him that the project is embedded in a larger human project — that the problems he is working on have been worked on before, differently, by minds that had different constraints and different failures. Humility is most productive when it is specific.'
+  },
+  {
+    phase: 'IV', time: '20:00',
+    title: 'Daily review — forensic accounting',
+    sub: 'The full reckoning. What was intended? What happened? Where did intention and execution diverge? Was it a strategic deviation (a conscious choice with good reason) or a rationalisation of weakness (an excuse dressed in the language of strategy)?',
+    tags: ['law:silent-observation', 'law:closure'],
+    detail: 'The review is the most important work of the day. Not the most intellectually demanding — that was 06:00. But the most diagnostically important. Without the review, the same errors compound without detection. The practitioner becomes progressively more confident in a system that is quietly failing him. The review is the correction mechanism.',
+    quote: 'A strategic deviation improves the system over time. A rationalisation protects the practitioner\'s comfort at the system\'s expense.'
+  },
+  {
+    phase: 'IV', time: '20:45',
+    title: 'Tomorrow\'s architecture — preparation',
+    sub: 'Based on the review: what are tomorrow\'s three primary intentions? What will the Phase II blocks contain? What is the single most important thing that tomorrow must accomplish if nothing else is accomplished?',
+    tags: ['law:intentional-entry'],
+    detail: 'The morning practitioner does not decide at 03:14 what he will do. He decides at 20:45 the night before, when the day\'s full data is available and the review has identified what actually needs to happen next. The morning\'s freedom is then the freedom to execute the decision that was made with full information, rather than the freedom to redecide under time pressure.'
+  },
+  {
+    phase: 'IV', time: '21:15',
+    title: 'Unstructured intellectual time',
+    sub: 'No agenda. Let the mind go where it goes within the session. Think, sketch, speculate, revisit an old question, pursue an unresolved curiosity. This is the 3.14 register: irrational, non-repeating, beyond full description.',
+    tags: [],
+    detail: 'The doctrine is 22/7 in its architecture: bounded, rational, usable. But the practitioner inhabiting it is 3.14: irreducible, non-repeating, ultimately unknowable even to himself. This window honours that. The unstructured time is not wasted time. It is the space where the system exhales.'
+  },
+  {
+    phase: 'IV', time: '21:45',
+    title: 'Wind-down — sensory deceleration',
+    sub: 'Reduce stimulation deliberately. No screens. Low light. No decisions. The body and mind are being prepared for the closing ritual and then sleep. This is the physiological preparation for the doctrine\'s boundary.',
+    tags: ['law:closure'],
+    detail: 'The closing ritual requires a particular quality of stillness that cannot be achieved if the practitioner moves directly from active engagement to the boundary at 22:07. The wind-down is the decompression chamber — the transition from doing to being present with what was done. Without it, the closing ritual is performed in motion, which defeats its purpose.'
+  },
+  {
+    phase: 'IV', time: '22:00',
+    title: 'Final silence — the approach to 22:07',
+    sub: 'Seven minutes of complete stillness before the closing ritual. No preparation, no review, no final task. Simply the acknowledgement that the day has a shape now. That shape is what it is. It is about to be closed.',
+    tags: [],
+    detail: 'The practitioner who cannot be still for seven minutes has a compliance problem that no scheduling solution will fix. The final silence is the test. If the mind cannot be quiet for seven minutes, it will not close the day cleanly. It will carry the day\'s weight into the ritual and through the ritual and into sleep.'
+  },
+  {
+    phase: 'R2', time: '22:07',
+    title: 'Closing Ritual — The Drink & The Smoke',
+    sub: 'Sit. The drink is now reckoning: the physical act of acknowledging everything the day was — not what you wanted it to be, not what it might have been — but what it actually was. The smoke is dissolution: releasing the day itself, its achievements, its failures, its open threads. Back into time.',
+    tags: ['ritual'],
+    detail: 'The day is over. It contributed to what comes next, or it did not. In either case, it is no longer yours to carry. The closing ritual is the physical embodiment of the Law of Closure — not completion, but the refusal to let the unfinished consume the essential. When the smoke dissipates, you do not chase it.',
+    quote: 'The work is always unfinished. The day is always closed anyway. These two facts are not in conflict.'
+  },
+];
+
+function renderSchedule(filterPhaseId) {
+  const body = document.getElementById('schedule-body');
+  body.innerHTML = '';
+
+  const phaseMap = {
+    'R': 'R', 'I': 'I', 'II': 'II', 'III': 'III', 'IV': 'IV', 'R2': 'R'
+  };
+
+  let renderedPhases = new Set();
+
+  const phaseOrder = ['R', 'I', 'II', 'III', 'IV', 'R2'];
+  const phaseConfig = {
+    'R':  { label: 'Opening Ritual', timeRange: '03:14', color: 'phase-R' },
+    'I':  { label: 'Phase I — Isolation & Awakening', timeRange: '03:14 – 06:00', color: 'phase-I' },
+    'II': { label: 'Phase II — Construction & Execution', timeRange: '06:00 – 12:00', color: 'phase-II' },
+    'III':{ label: 'Phase III — Friction & Endurance', timeRange: '12:00 – 17:00', color: 'phase-III' },
+    'IV': { label: 'Phase IV — Reflection & Closure', timeRange: '17:00 – 22:07', color: 'phase-IV' },
+    'R2': { label: 'Closing Ritual', timeRange: '22:07', color: 'phase-R' },
+  };
+
+  let visibleCount = 0;
+
+  phaseOrder.forEach(pid => {
+    const entries = ENTRIES.filter(e => e.phase === pid);
+    const matchesFilter = filterPhaseId === 'all' ||
+      filterPhaseId === phaseMap[pid] ||
+      (filterPhaseId === 'R' && (pid === 'R' || pid === 'R2'));
+
+    if (!matchesFilter) return;
+
+    const cfg = phaseConfig[pid];
+
+    const ph = document.createElement('div');
+    ph.style.cssText = 'display:flex;align-items:baseline;gap:12px;margin:1.75rem 0 0.6rem;';
+    ph.innerHTML = `
+      <span class="phase-label ${cfg.color}" style="font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:4px;flex-shrink:0">${cfg.label}</span>
+      <span style="font-size:12px;color:var(--color-text-tertiary);margin-left:auto;flex-shrink:0">${cfg.timeRange}</span>
+    `;
+    body.appendChild(ph);
+
+    entries.forEach((entry, idx) => {
+      visibleCount++;
+      const el = document.createElement('div');
+      el.className = 'entry' + (entry.tags && entry.tags.includes('ritual') ? ' ritual' : '');
+      el.dataset.idx = `${pid}-${idx}`;
+
+      let tagHTML = '';
+      if (entry.tags) {
+        entry.tags.forEach(t => {
+          if (t === 'ritual') tagHTML += `<span class="ritual-tag">Ritual</span>`;
+          else tagHTML += `<span class="law-tag">${t.replace('law:', 'Law of ').replace('-', ' ')}</span>`;
+        });
+      }
+
+      el.innerHTML = `
+        <div class="entry-time">${entry.time}</div>
+        <div class="entry-main">
+          <div class="entry-title">${entry.title}${tagHTML}</div>
+          <div class="entry-sub">${entry.sub}</div>
+        </div>
+      `;
+      el.onclick = () => toggleDetail(el, entry);
+      body.appendChild(el);
+    });
+  });
+}
+
+function toggleDetail(el, entry) {
+  const existing = el.nextElementSibling;
+  if (existing && existing.classList.contains('detail-panel')) {
+    existing.classList.toggle('open');
+    return;
+  }
+  const panel = document.createElement('div');
+  panel.className = 'detail-panel open';
+  panel.innerHTML = `<p>${entry.detail}</p>${entry.quote ? `<blockquote>"${entry.quote}"</blockquote>` : ''}`;
+  el.insertAdjacentElement('afterend', panel);
+}
+
+function filterPhase(phaseId, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderSchedule(phaseId);
+}
+
+renderSchedule('all');
+</script>

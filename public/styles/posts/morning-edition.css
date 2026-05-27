@@ -1,0 +1,137 @@
+/* morning-edition.css — Broadsheet newspaper override for CommonDefault */
+
+:root {
+  --bg: #f5f0e8;
+  --fg: #1a1208;
+  --accent: #8b0000;
+  --muted: #5a4a3a;
+  --border: #c8b89a;
+  --surface: #ede8df;
+  --font-body: 'Times New Roman', Times, serif;
+  --font-heading: 'Times New Roman', Times, serif;
+}
+
+/* Masthead title — large broadsheet style */
+.container h1,
+article h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-top: 4px solid #1a1208;
+  border-bottom: 4px solid #1a1208;
+  padding: 0.5rem 0;
+  margin-bottom: 0.5rem;
+}
+
+/* Dateline / meta */
+.meta {
+  text-align: center;
+  font-style: italic;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #c8b89a;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+  color: #5a4a3a;
+}
+
+/* Excerpt as standfirst */
+.excerpt {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  font-style: italic;
+  color: #3a2a1a;
+  border-top: 1px solid #c8b89a;
+  border-bottom: 1px solid #c8b89a;
+  padding: 0.75rem 0;
+  margin-bottom: 1.5rem;
+}
+
+/* Multi-column body text */
+.body {
+  column-count: 2;
+  column-gap: 2rem;
+  column-rule: 1px solid #c8b89a;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  text-align: justify;
+  hyphens: auto;
+}
+
+/* Section headings break columns */
+.body h2 {
+  column-span: all;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-top: 2px solid #1a1208;
+  border-bottom: 1px solid #1a1208;
+  padding: 0.3rem 0;
+  margin: 1.5rem 0 1rem;
+  color: #1a1208;
+}
+
+.body h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-style: italic;
+  color: #3a2a1a;
+  margin: 1.25rem 0 0.5rem;
+}
+
+/* Drop cap on first paragraph */
+.body p:first-of-type::first-letter {
+  font-size: 3.5rem;
+  font-weight: 900;
+  float: left;
+  line-height: 0.8;
+  margin: 0.1em 0.1em 0 0;
+  color: #8b0000;
+}
+
+/* Blockquote as pull quote */
+.body blockquote {
+  column-span: all;
+  border: none;
+  border-top: 2px solid #8b0000;
+  border-bottom: 2px solid #8b0000;
+  background: transparent;
+  text-align: center;
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: 600;
+  color: #8b0000;
+  padding: 1rem 2rem;
+  margin: 1.5rem 0;
+}
+
+/* Code */
+.body pre {
+  column-span: all;
+  background: #ede8df;
+  border: 1px solid #c8b89a;
+  font-family: monospace;
+  font-size: 0.85rem;
+}
+
+.body code {
+  font-family: monospace;
+  background: #e8e0d0;
+  color: #8b0000;
+  font-size: 0.88em;
+}
+
+/* Links */
+.body a {
+  color: #8b0000;
+  text-decoration: underline;
+}
+
+/* Responsive — single column on mobile */
+@media (max-width: 640px) {
+  .body {
+    column-count: 1;
+  }
+}

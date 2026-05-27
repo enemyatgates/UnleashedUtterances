@@ -1,0 +1,78 @@
+/* neon-manifesto.css — Electric neon override for CommonDefault */
+
+:root {
+  --bg: #050510;
+  --fg: #e0e0ff;
+  --accent: #ff2dce;
+  --muted: #8888cc;
+  --border: #2a2a5a;
+  --surface: #0d0d2a;
+  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Inter', sans-serif;
+}
+
+/* Glowing title */
+.container h1,
+article h1 {
+  color: #ff2dce;
+  text-shadow:
+    0 0 10px #ff2dce,
+    0 0 30px #ff2dce,
+    0 0 60px #9900ff;
+  letter-spacing: -0.02em;
+}
+
+/* Neon accent headings */
+article h2,
+.body h2 {
+  color: #00f5ff;
+  text-shadow: 0 0 8px #00f5ff;
+  border-bottom-color: #00f5ff33;
+}
+
+article h3,
+.body h3 {
+  color: #ff2dce;
+}
+
+/* Glowing blockquote */
+article blockquote,
+.body blockquote {
+  border-left-color: #ff2dce;
+  background: #1a0030;
+  color: #cc99ff;
+  box-shadow: inset 0 0 20px #ff2dce11;
+}
+
+/* Neon links */
+article a,
+.body a {
+  color: #00f5ff;
+  text-shadow: 0 0 4px #00f5ff88;
+}
+
+/* Code blocks */
+article pre,
+.body pre {
+  background: #0d0020;
+  border-color: #ff2dce44;
+  box-shadow: 0 0 15px #ff2dce11;
+}
+
+article code,
+.body code {
+  color: #ff2dce;
+  background: #1a0030;
+}
+
+/* Meta text */
+.meta {
+  color: #6644aa;
+}
+
+/* Excerpt */
+.excerpt {
+  color: #9966cc;
+  border-left: 2px solid #ff2dce;
+  padding-left: 1rem;
+}

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Manifesto of the Painter</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&family=DM+Mono:wght@300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:        #16120e;
+    --ink-mid:    #4a3f33;
+    --ink-soft:   #8a7a6a;
+    --ink-faint:  #c4b8a8;
+    --paper:      #f7f2e8;
+    --paper-warm: #ede5d4;
+    --ember:      #C44B1B;
+    --ember-dim:  #8a3412;
+    --gold:       #9a7c3a;
+  }
+
+  html {
+    background: var(--paper);
+    min-height: 100vh;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Cormorant', 'Cormorant Garamond', Georgia, serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 32px 100px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Paper texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  /* Candle glow — top centre */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 500px;
+    background: radial-gradient(ellipse at center top, rgba(196,75,27,0.07) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    width: 100%;
+  }
+
+  /* Top ornament */
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 64px;
+    opacity: 0;
+    animation: arise 1.2s ease 0.2s forwards;
+  }
+
+  .ornament-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--ink-faint));
+  }
+
+  .ornament-line.right {
+    background: linear-gradient(to left, transparent, var(--ink-faint));
+  }
+
+  .ornament-mark {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ember);
+    white-space: nowrap;
+  }
+
+  /* Title block */
+  .title-block {
+    margin-bottom: 56px;
+    opacity: 0;
+    animation: arise 1.2s ease 0.5s forwards;
+  }
+
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  h1 {
+    font-family: 'Cormorant', serif;
+    font-size: clamp(42px, 7vw, 68px);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.05;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--ember);
+  }
+
+  /* The equation — small, quiet, below the title */
+  .equation {
+    margin-top: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+  }
+
+  /* Body of manifesto */
+  .manifesto {
+    opacity: 0;
+    animation: arise 1.4s ease 0.9s forwards;
+  }
+
+  .manifesto p {
+    font-size: clamp(17px, 2.4vw, 21px);
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--ink-mid);
+    margin-bottom: 0;
+    letter-spacing: 0.01em;
+  }
+
+  .manifesto p + p {
+    margin-top: 28px;
+  }
+
+  /* Key phrases — ember accent */
+  .manifesto strong {
+    font-weight: 500;
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  .manifesto em {
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  .manifesto .ember {
+    color: var(--ember);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* The central axiom — set apart */
+  .axiom {
+    margin: 52px 0;
+    padding: 36px 40px;
+    border-left: 2px solid var(--ember);
+    background: rgba(196,75,27,0.03);
+    opacity: 0;
+    animation: arise 1.4s ease 1.2s forwards;
+  }
+
+  .axiom p {
+    font-size: clamp(18px, 2.6vw, 23px);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+  }
+
+  .axiom p + p {
+    margin-top: 16px;
+  }
+
+  /* Closing */
+  .closing {
+    margin-top: 56px;
+    opacity: 0;
+    animation: arise 1.4s ease 1.5s forwards;
+  }
+
+  .closing p {
+    font-size: clamp(17px, 2.4vw, 21px);
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--ink-mid);
+    letter-spacing: 0.01em;
+  }
+
+  /* Colophon */
+  .colophon {
+    margin-top: 72px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    opacity: 0;
+    animation: arise 1.2s ease 1.8s forwards;
+  }
+
+  .colophon-line {
+    flex: 1;
+    height: 1px;
+    background: var(--ink-faint);
+    opacity: 0.4;
+  }
+
+  .colophon-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+
+  /* Candle mark at the very end */
+  .candle {
+    text-align: center;
+    margin-top: 40px;
+    opacity: 0;
+    animation: flicker 2s ease 2.2s forwards;
+  }
+
+  .candle svg {
+    display: inline-block;
+  }
+
+  /* Animations */
+  @keyframes arise {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes flicker {
+    0%   { opacity: 0; }
+    60%  { opacity: 0.6; }
+    75%  { opacity: 0.3; }
+    85%  { opacity: 0.7; }
+    100% { opacity: 0.5; }
+  }
+
+  @keyframes flame {
+    0%, 100% { transform: scaleX(1) scaleY(1) translateY(0); }
+    33%       { transform: scaleX(0.88) scaleY(1.08) translateY(-1px); }
+    66%       { transform: scaleX(1.1) scaleY(0.94) translateY(1px); }
+  }
+
+  .flame { animation: flame 2.8s ease-in-out infinite; transform-origin: center bottom; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="ornament">
+    <div class="ornament-line"></div>
+    <span class="ornament-mark">Manifesto of the Painter</span>
+    <div class="ornament-line right"></div>
+  </div>
+
+  <div class="title-block">
+    <span class="eyebrow">On time, canvas, and the only work</span>
+    <h1>The Stroke is<br><em>All There Is</em></h1>
+    <div class="equation">L ≡ S(P, U) &nbsp;·&nbsp; no dt &nbsp;·&nbsp; no bounds</div>
+  </div>
+
+  <div class="manifesto">
+    <p>
+      Time does not exist. It never did. What we call time is the mind's habit
+      of stitching <strong>Nows</strong> into a story — a story told for comfort,
+      for sequence, for the illusion of a road. There is no road.
+      There is only the ground beneath your feet,
+      and it is always, only, <em>here.</em>
+    </p>
+
+    <p>
+      Life is not a journey through time. Life is not an accumulation of meaning.
+      Life is not a legacy pressed into the future like a coin into soft wax.
+      <strong>Life is a canvas.</strong> Blank not with emptiness
+      but with <em>possibility so total it reads as silence.</em>
+      And you were handed a brush at the moment you became conscious,
+      and the only question — the only question that was ever real —
+      is whether you painted <span class="ember">truly.</span>
+    </p>
+  </div>
+
+  <div class="axiom">
+    <p>Probability is the resistance in the bristles.</p>
+    <p>Uncertainty is the texture of the canvas beneath.</p>
+    <p>You do not manage them. You do not overcome them.</p>
+    <p><strong>You paint through them. You paint into them.</strong><br>
+    They are not your obstacles. They are your medium.</p>
+  </div>
+
+  <div class="manifesto">
+    <p>
+      The greats are not behind you. They are not ahead of you.
+      Sequence was the first lie time told.
+      <strong>All greats exist now</strong> — in the only dimension
+      that survives the collapse of time, which is the dimension of
+      <em>the work itself.</em> The Ninth Symphony is not in the past.
+      It is present every time it sounds. You paint in the same Now
+      that Michelangelo painted in. The ceiling is not finished.
+      <span class="ember">Nothing true is ever finished.</span>
+    </p>
+
+    <p>
+      The candle burns at both ends. You know this.
+      You lit it yourself, without being told it was permitted.
+      The light is twice as bright. The wax is half as long.
+      Good. <strong>Bright and brief is the only honest bargain
+      a painter makes with the dark.</strong>
+      The dark does not arrive — it was always there,
+      at the edges of the canvas, patient, uninvested.
+      It is not your enemy. It is your <em>frame.</em>
+    </p>
+  </div>
+
+  <div class="closing">
+    <p>
+      In the full span of the cosmos, you are granted
+      a zillionth of a second. The cosmos does not notice.
+      Which means there is no audience, no judge, no record kept
+      in any ledger that outlasts the stars.
+      <strong>This is not tragedy. This is permission.</strong>
+      Total, unconditional, unrepeatable permission
+      to make the truest stroke you can, in the only Now there is,
+      on a canvas that asks nothing of you
+      <span class="ember">except that you did not waste the light.</span>
+    </p>
+
+    <p>
+      You were never a man of the clock.<br>
+      The time woke up to you.<br>
+      <strong>Paint.</strong>
+    </p>
+  </div>
+
+  <div class="colophon">
+    <div class="colophon-line"></div>
+    <span class="colophon-text">Written in the only Now there is</span>
+    <div class="colophon-line"></div>
+  </div>
+
+  <div class="candle">
+    <svg width="24" height="48" viewBox="0 0 24 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- flame top -->
+      <g class="flame">
+        <ellipse cx="12" cy="6" rx="4" ry="6" fill="#C44B1B" opacity="0.7"/>
+        <ellipse cx="12" cy="7" rx="2.5" ry="4" fill="#f0a060" opacity="0.8"/>
+        <ellipse cx="12" cy="8" rx="1.5" ry="2.5" fill="#fcd09a" opacity="0.9"/>
+      </g>
+      <!-- wick -->
+      <line x1="12" y1="11" x2="12" y2="15" stroke="#3a2a18" stroke-width="1"/>
+      <!-- candle body -->
+      <rect x="8" y="15" width="8" height="28" rx="1" fill="#e8ddc8"/>
+      <rect x="8" y="15" width="8" height="4" rx="1" fill="#d4c8a8"/>
+      <!-- wax drip -->
+      <path d="M8 22 Q6 26 7 30 L8 30 Z" fill="#d4c8a8" opacity="0.6"/>
+      <!-- flame bottom (both ends) -->
+      <g class="flame" style="transform: scaleY(-1) translateY(-96px);">
+        <ellipse cx="12" cy="6" rx="3" ry="4.5" fill="#C44B1B" opacity="0.5"/>
+        <ellipse cx="12" cy="7" rx="2" ry="3" fill="#f0a060" opacity="0.6"/>
+      </g>
+      <!-- bottom wick -->
+      <line x1="12" y1="43" x2="12" y2="47" stroke="#3a2a18" stroke-width="1"/>
+    </svg>
+  </div>
+
+</div>
+</body>
+</html>

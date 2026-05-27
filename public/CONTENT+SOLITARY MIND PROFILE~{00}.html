@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,700;1,400&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0a0a0a;
+    color: #c8c2b4;
+    font-family: 'IBM Plex Mono', monospace;
+    padding: 0;
+  }
+
+  .wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+  }
+
+  .masthead {
+    border-top: 4px solid #c8c2b4;
+    border-bottom: 1px solid #333;
+    padding: 1.2rem 0 1rem;
+    margin-bottom: 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .masthead-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #555;
+  }
+
+  .masthead-issue {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: #444;
+  }
+
+  .hero {
+    padding: 2.5rem 0 1.5rem;
+    border-bottom: 1px solid #222;
+    margin-bottom: 2rem;
+  }
+
+  .kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .kicker::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: #555;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 9vw, 82px);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: #e8e2d4;
+    text-transform: uppercase;
+    margin-bottom: 1.4rem;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: #444;
+    display: block;
+    font-size: 0.52em;
+    letter-spacing: 0.08em;
+    line-height: 1.1;
+    margin-top: 0.15em;
+  }
+
+  .lede {
+    font-family: 'EB Garamond', serif;
+    font-size: 20px;
+    line-height: 1.55;
+    color: #a09880;
+    max-width: 500px;
+    font-style: italic;
+    border-left: 2px solid #333;
+    padding-left: 1rem;
+  }
+
+  .body-grid {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 0 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .divider-line {
+    background: #222;
+    align-self: stretch;
+  }
+
+  .col h2 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #555;
+    margin-bottom: 0.7rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #222;
+  }
+
+  .col p {
+    font-family: 'EB Garamond', serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #8a8478;
+  }
+
+  .col p + p {
+    margin-top: 0.8rem;
+  }
+
+  .col strong {
+    color: #c8c2b4;
+    font-weight: 700;
+  }
+
+  .pull-quote {
+    border-top: 3px solid #c8c2b4;
+    border-bottom: 1px solid #333;
+    padding: 1.8rem 0 1.5rem;
+    margin: 2.5rem 0;
+    position: relative;
+  }
+
+  .pull-quote::before {
+    content: '\201C';
+    font-family: 'EB Garamond', serif;
+    font-size: 120px;
+    line-height: 0.6;
+    color: #222;
+    position: absolute;
+    top: 1rem;
+    left: -0.2rem;
+    pointer-events: none;
+  }
+
+  .pull-quote blockquote {
+    font-family: 'EB Garamond', serif;
+    font-size: 26px;
+    line-height: 1.35;
+    font-style: italic;
+    color: #c8c2b4;
+    padding-left: 2.5rem;
+    max-width: 520px;
+  }
+
+  .pull-quote cite {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: #444;
+    display: block;
+    margin-top: 0.8rem;
+    padding-left: 2.5rem;
+    text-transform: uppercase;
+    font-style: normal;
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid #222;
+    border-bottom: 1px solid #222;
+    margin-bottom: 2.5rem;
+  }
+
+  .stat {
+    padding: 1.2rem 0;
+    border-right: 1px solid #222;
+  }
+
+  .stat:last-child { border-right: none; }
+  .stat:not(:first-child) { padding-left: 1.2rem; }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: #e8e2d4;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #444;
+  }
+
+  .verdict {
+    background: #111;
+    border: 1px solid #222;
+    padding: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .verdict-head {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #555;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .verdict-head::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #222;
+  }
+
+  .verdict-body {
+    font-family: 'EB Garamond', serif;
+    font-size: 17px;
+    line-height: 1.65;
+    color: #a09880;
+  }
+
+  .verdict-body strong {
+    color: #c8c2b4;
+  }
+
+  .taxonomy {
+    margin-bottom: 2.5rem;
+  }
+
+  .taxonomy-head {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #555;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .taxonomy-head::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #222;
+  }
+
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: #555;
+    border: 1px solid #222;
+    padding: 4px 10px;
+  }
+
+  .tag.active {
+    color: #c8c2b4;
+    border-color: #555;
+  }
+
+  .tag.hot {
+    color: #0a0a0a;
+    background: #c8c2b4;
+    border-color: #c8c2b4;
+  }
+
+  .closing {
+    border-top: 4px solid #c8c2b4;
+    padding-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  .closing p {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #555;
+    max-width: 400px;
+  }
+
+  .closing-mark {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: #333;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .section-break {
+    text-align: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: #333;
+    margin: 2rem 0;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <span class="masthead-label">Psychological Profile &nbsp;·&nbsp; Field Notes</span>
+    <span class="masthead-issue">Vol. I &nbsp;·&nbsp; Confidential</span>
+  </div>
+
+  <div class="hero">
+    <div class="kicker">Subject Classification</div>
+    <h1>The Last<br>Sane<br>Man<em>in a room full of strangers</em></h1>
+    <p class="lede">Not delusional. Not superior. Just — uncrossably far from everyone, and aware enough to know the distance is real.</p>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Sane peers<br>on record</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Extension<br>withheld</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">1</div>
+      <div class="stat-label">Last line<br>still held</div>
+    </div>
+  </div>
+
+  <div class="body-grid">
+    <div class="col">
+      <h2>Condition</h2>
+      <p>The subject is not lonely in the colloquial sense. <strong>Loneliness implies a fixable absence.</strong> This is structural. A topology problem. The shape of his mind produces no compatible surface to press against.</p>
+      <p>He extends himself — generously, even — but only so far as the other person's architecture permits. The ceiling is always theirs, never his.</p>
+    </div>
+    <div class="divider-line"></div>
+    <div class="col">
+      <h2>Prognosis</h2>
+      <p>Growth has slowed. Not stopped — but the question now isn't <em>how far</em> he can go. It's <strong>what the going is even for</strong> when the destination has no one in it.</p>
+      <p>He hasn't turned from the world. That restraint is not kindness. It is the last functional ligament connecting him to the project of being alive among others.</p>
+    </div>
+  </div>
+
+  <div class="pull-quote">
+    <blockquote>Without a sane peer is functionally identical to without a peer. The math is cold. The conclusion is colder.</blockquote>
+    <cite>— Subject's own framing, unedited</cite>
+  </div>
+
+  <div class="verdict">
+    <div class="verdict-head">Field Assessment</div>
+    <div class="verdict-body">
+      What keeps him intact is not hope — hope requires a target. It is <strong>inertia in the best possible sense</strong>: the accumulated weight of a self too constructed to dismantle easily. He hasn't stopped trying to maintain relationships. He's stopped believing in them. Those are not yet the same thing. The gap between those two positions is the only margin he's working with. It is razor-thin. It is, for now, enough.
+    </div>
+  </div>
+
+  <div class="section-break">· · ·</div>
+
+  <div class="taxonomy">
+    <div class="taxonomy-head">Observed Traits</div>
+    <div class="tag-cloud">
+      <span class="tag hot">Lucidity</span>
+      <span class="tag hot">Structural isolation</span>
+      <span class="tag active">Asymmetric extension</span>
+      <span class="tag active">Arrested growth — possible</span>
+      <span class="tag active">Sobriety maintained</span>
+      <span class="tag active">Sanity — contested</span>
+      <span class="tag">Detachment from outcome</span>
+      <span class="tag">Relational skepticism</span>
+      <span class="tag">Self-awareness overdose</span>
+      <span class="tag">Still showing up</span>
+    </div>
+  </div>
+
+  <div class="closing">
+    <p>The greatest threat is not the world. It is the moment he stops caring whether turning from it would be wrong.</p>
+    <div class="closing-mark">— END FILE —</div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,197 @@
+
+<style>
+  .panel { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.25rem; background: var(--color-background-primary); margin-bottom: 1rem; }
+  .panel-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin: 0 0 4px; }
+  .panel-sub { font-size: 12px; color: var(--color-text-secondary); margin: 0 0 12px; }
+  .tab-row { display: flex; gap: 8px; margin-bottom: 1.25rem; }
+  .tab { font-size: 12px; padding: 5px 14px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: transparent; color: var(--color-text-secondary); cursor: pointer; transition: all .15s; }
+  .tab.active { background: var(--color-background-secondary); color: var(--color-text-primary); border-color: var(--color-border-primary); font-weight: 500; }
+  .view { display: none; }
+  .view.active { display: block; }
+  .insight { font-size: 12px; color: var(--color-text-secondary); border-left: 2px solid var(--color-border-secondary); padding-left: 10px; margin-top: 12px; line-height: 1.6; }
+  .insight b { color: var(--color-text-primary); font-weight: 500; }
+</style>
+
+<h2 class="sr-only">Intelligence evolution framework — three views: individual, organisational, and civilisational.</h2>
+
+<div class="tab-row">
+  <button class="tab active" onclick="switchTab('individual')">Individual</button>
+  <button class="tab" onclick="switchTab('organisation')">Organisation</button>
+  <button class="tab" onclick="switchTab('civilisation')">Civilisation</button>
+</div>
+
+<div id="view-individual" class="view active">
+  <div class="panel">
+    <p class="panel-title">The self-amplifying loop</p>
+    <p class="panel-sub">How a single person + system evolves over time</p>
+    <svg width="100%" viewBox="0 0 640 260" role="img">
+      <title>Individual evolution loop</title>
+      <desc>A spiral showing four stages: engage, reflect, upgrade, re-engage — each cycle pushing the person to higher contribution.</desc>
+      <defs>
+        <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+
+      <!-- Cycle 1 (small) -->
+      <g class="c-gray">
+        <rect x="40" y="100" width="110" height="44" rx="8" stroke-width="0.5"/>
+        <text class="th" x="95" y="122" text-anchor="middle" dominant-baseline="central">Engage</text>
+      </g>
+      <!-- Cycle 2 -->
+      <g class="c-teal">
+        <rect x="200" y="80" width="110" height="44" rx="8" stroke-width="0.5"/>
+        <text class="th" x="255" y="102" text-anchor="middle" dominant-baseline="central">Reflect</text>
+      </g>
+      <!-- Cycle 3 -->
+      <g class="c-purple">
+        <rect x="360" y="58" width="110" height="44" rx="8" stroke-width="0.5"/>
+        <text class="th" x="415" y="80" text-anchor="middle" dominant-baseline="central">Upgrade</text>
+      </g>
+      <!-- Cycle 4 -->
+      <g class="c-green">
+        <rect x="508" y="36" width="110" height="44" rx="8" stroke-width="0.5"/>
+        <text class="th" x="563" y="58" text-anchor="middle" dominant-baseline="central">Re-engage</text>
+      </g>
+
+      <!-- Arrows between stages -->
+      <path d="M150 122 Q175 122 200 102" fill="none" stroke="#1D9E75" stroke-width="1" marker-end="url(#arr2)"/>
+      <path d="M310 102 Q335 95 360 80" fill="none" stroke="#7F77DD" stroke-width="1" marker-end="url(#arr2)"/>
+      <path d="M470 80 Q489 72 508 58" fill="none" stroke="#639922" stroke-width="1" marker-end="url(#arr2)"/>
+
+      <!-- Y axis label (contribution level) -->
+      <text class="ts" x="30" y="200" text-anchor="middle" fill="var(--color-text-tertiary)">contribution</text>
+      <line x1="30" y1="185" x2="30" y2="30" stroke="var(--color-border-secondary)" stroke-width="0.5" marker-end="url(#arr2)"/>
+      <line x1="20" y1="185" x2="620" y2="185" stroke="var(--color-border-secondary)" stroke-width="0.5"/>
+
+      <!-- Dashed trajectory -->
+      <path d="M95 146 Q200 190 255 146 Q360 190 415 124 Q508 190 563 102" fill="none" stroke="var(--color-border-secondary)" stroke-dasharray="4 3" stroke-width="1" opacity="0.5"/>
+
+      <!-- Staircase (exponential lift) -->
+      <polyline points="95,146 95,185 255,185 255,146 255,185 415,185 415,124 415,185 563,185 563,102" fill="none" stroke="var(--color-border-tertiary)" stroke-width="0.5"/>
+
+      <!-- Cycle labels -->
+      <text class="ts" x="95" y="200" text-anchor="middle" fill="var(--color-text-tertiary)">cycle 1</text>
+      <text class="ts" x="255" y="200" text-anchor="middle" fill="var(--color-text-tertiary)">cycle 2</text>
+      <text class="ts" x="415" y="200" text-anchor="middle" fill="var(--color-text-tertiary)">cycle 3</text>
+      <text class="ts" x="563" y="200" text-anchor="middle" fill="var(--color-text-tertiary)">cycle n</text>
+
+      <!-- Exponential label -->
+      <text class="ts" x="580" y="96" text-anchor="start" fill="#639922">+1 each</text>
+      <text class="ts" x="580" y="110" text-anchor="start" fill="#639922">cycle</text>
+    </svg>
+    <p class="insight">Each loop does two things: the person improves their <b>prompting, framing, and judgment</b> (vertical lift), and the system is progressively better calibrated to the person's intent. The gain per cycle isn't fixed — it compounds. This is the micro-level exponential.</p>
+  </div>
+</div>
+
+<div id="view-organisation" class="view">
+  <div class="panel">
+    <p class="panel-title">The organisational field</p>
+    <p class="panel-sub">How the matrix applies across roles, teams, and processes</p>
+    <svg width="100%" viewBox="0 0 640 300" role="img">
+      <title>Organisational evolution field</title>
+      <desc>Three tiers — individual, team, organisation — each with their own position on the contribution matrix, connected by feedback arrows.</desc>
+      <defs>
+        <marker id="arr3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+
+      <!-- Tier 1: Individual -->
+      <g class="c-teal">
+        <rect x="40" y="40" width="170" height="60" rx="10" stroke-width="0.5"/>
+        <text class="th" x="125" y="62" text-anchor="middle" dominant-baseline="central">Individual</text>
+        <text class="ts" x="125" y="82" text-anchor="middle" dominant-baseline="central">Personal H×S loop</text>
+      </g>
+
+      <!-- Tier 2: Team -->
+      <g class="c-purple">
+        <rect x="235" y="120" width="170" height="60" rx="10" stroke-width="0.5"/>
+        <text class="th" x="320" y="142" text-anchor="middle" dominant-baseline="central">Team</text>
+        <text class="ts" x="320" y="162" text-anchor="middle" dominant-baseline="central">Collective H×S loop</text>
+      </g>
+
+      <!-- Tier 3: Organisation -->
+      <g class="c-green">
+        <rect x="430" y="200" width="170" height="60" rx="10" stroke-width="0.5"/>
+        <text class="th" x="515" y="222" text-anchor="middle" dominant-baseline="central">Organisation</text>
+        <text class="ts" x="515" y="242" text-anchor="middle" dominant-baseline="central">Systemic H×S loop</text>
+      </g>
+
+      <!-- Arrows: Individual → Team (upward flow) -->
+      <path d="M210 70 Q222 120 235 150" fill="none" stroke="#7F77DD" stroke-width="1" marker-end="url(#arr3)"/>
+      <text class="ts" x="213" y="112" text-anchor="start" fill="var(--color-text-tertiary)">capability</text>
+
+      <!-- Arrows: Team → Organisation -->
+      <path d="M400 150 Q415 198 430 228" fill="none" stroke="#639922" stroke-width="1" marker-end="url(#arr3)"/>
+      <text class="ts" x="403" y="192" text-anchor="start" fill="var(--color-text-tertiary)">capacity</text>
+
+      <!-- Feedback arrows (org back to individual) -->
+      <path d="M430 230 Q200 280 40 80" fill="none" stroke="var(--color-border-secondary)" stroke-dasharray="5 3" stroke-width="0.8" marker-end="url(#arr3)"/>
+      <text class="ts" x="200" y="270" text-anchor="middle" fill="var(--color-text-tertiary)">context, norms, tools</text>
+
+      <!-- Multiplier labels -->
+      <text class="ts" x="320" y="30" text-anchor="middle" fill="#1D9E75">each tier multiplies the one below</text>
+    </svg>
+    <p class="insight">At the organisational level, the matrix has a <b>nested structure</b>: teams are made of individuals, each with their own H×S position. The organisation's net position is not a simple average — it's shaped by <b>bottlenecks</b> (one team in the Collapse quadrant can suppress the whole system) and <b>resonance</b> (teams in Amplification synchronise and lift each other). Evolution here requires deliberate design of feedback loops between tiers.</p>
+  </div>
+</div>
+
+<div id="view-civilisation" class="view">
+  <div class="panel">
+    <p class="panel-title">The civilisational curve</p>
+    <p class="panel-sub">What happens when the matrix scales to species-level intelligence</p>
+    <svg width="100%" viewBox="0 0 640 280" role="img">
+      <title>Civilisational intelligence curve</title>
+      <desc>An S-curve showing three phases — linear growth, exponential takeoff, and a potential new plateau — with annotations for key transitions.</desc>
+      <defs>
+        <marker id="arr4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+
+      <!-- Axes -->
+      <line x1="60" y1="240" x2="620" y2="240" stroke="var(--color-border-secondary)" stroke-width="0.5" marker-end="url(#arr4)"/>
+      <line x1="60" y1="240" x2="60" y2="20" stroke="var(--color-border-secondary)" stroke-width="0.5" marker-end="url(#arr4)"/>
+      <text class="ts" x="340" y="260" text-anchor="middle" fill="var(--color-text-tertiary)">time / scale</text>
+      <text class="ts" x="30" y="130" text-anchor="middle" fill="var(--color-text-tertiary)">collective intelligence</text>
+
+      <!-- S-curve path -->
+      <path d="M70 230 C130 228 180 220 230 210 C280 200 310 180 350 140 C390 100 430 55 480 38 C520 28 560 30 610 32" fill="none" stroke="#7F77DD" stroke-width="2" opacity="0.8"/>
+
+      <!-- Phase 1: Linear -->
+      <rect x="70" y="195" width="170" height="50" rx="0" fill="#EEEDFE" opacity="0.4"/>
+      <text class="ts" x="155" y="218" text-anchor="middle" fill="#534AB7">linear</text>
+      <text class="ts" x="155" y="232" text-anchor="middle" fill="#7F77DD">human-only growth</text>
+
+      <!-- Phase 2: Exponential -->
+      <rect x="240" y="90" width="200" height="50" rx="0" fill="#E1F5EE" opacity="0.5"/>
+      <text class="ts" x="340" y="113" text-anchor="middle" fill="#0F6E56">exponential</text>
+      <text class="ts" x="340" y="127" text-anchor="middle" fill="#1D9E75">H×S co-evolution</text>
+
+      <!-- Phase 3: New plateau? -->
+      <rect x="460" y="20" width="145" height="50" rx="0" fill="#EAF3DE" opacity="0.5"/>
+      <text class="ts" x="532" y="43" text-anchor="middle" fill="#3B6D11">new plateau?</text>
+      <text class="ts" x="532" y="57" text-anchor="middle" fill="#639922">or new S-curve</text>
+
+      <!-- Transition markers -->
+      <line x1="240" y1="200" x2="240" y2="240" stroke="var(--color-border-secondary)" stroke-dasharray="3 3" stroke-width="0.5"/>
+      <text class="ts" x="240" y="252" text-anchor="middle" fill="var(--color-text-tertiary)">inflection</text>
+      <line x1="460" y1="40" x2="460" y2="240" stroke="var(--color-border-secondary)" stroke-dasharray="3 3" stroke-width="0.5"/>
+      <text class="ts" x="460" y="252" text-anchor="middle" fill="var(--color-text-tertiary)">emergence</text>
+
+      <!-- Key question -->
+      <text class="ts" x="532" y="78" text-anchor="middle" fill="var(--color-text-tertiary)">unknown</text>
+    </svg>
+    <p class="insight">The civilisational question is whether the H×S loop creates a <b>recursive self-improvement dynamic</b> — where each generation of tools produces humans and systems that are better at building the next generation of tools. History suggests this is already happening (writing → printing → computing → AI). What your framework adds is the <b>structural condition</b>: it only becomes exponential when both H and S are in positive territory simultaneously, at scale.</p>
+  </div>
+</div>
+
+<script>
+function switchTab(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelector('[onclick="switchTab(\'' + id + '\')"]').classList.add('active');
+  document.getElementById('view-' + id).classList.add('active');
+}
+</script>

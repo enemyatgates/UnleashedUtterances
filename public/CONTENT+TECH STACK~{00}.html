@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Tech Stack · Notes, Knowledge & Presentations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0e10;
+    --bg2: #16161a;
+    --bg3: #1e1e24;
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.15);
+    --text: #f0eee8;
+    --muted: #888784;
+    --accent-joplin: #2c89e0;
+    --accent-notion: #9b8afb;
+    --accent-marp: #e05c2c;
+    --accent-md: #3db87a;
+    --accent-git: #e8c55a;
+    --tag-bg: rgba(255,255,255,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── Noise overlay ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 6rem 8vw 4rem;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(44,137,224,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    line-height: 1.05;
+    font-weight: 400;
+    max-width: 700px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    background: linear-gradient(135deg, #2c89e0 0%, #9b8afb 50%, #e05c2c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    max-width: 500px;
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+
+  .hero-pills {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    padding: 0.35rem 0.9rem;
+    border-radius: 100px;
+    border: 1px solid var(--border-strong);
+    color: var(--muted);
+    background: var(--tag-bg);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 8vw;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    animation: nudge 2.4s ease-in-out infinite;
+  }
+
+  @keyframes nudge {
+    0%, 100% { transform: translateY(0); opacity: 0.6; }
+    50% { transform: translateY(5px); opacity: 1; }
+  }
+
+  /* ── Section wrapper ── */
+  .section {
+    position: relative;
+    z-index: 1;
+    padding: 5rem 8vw;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 200px;
+  }
+
+  /* ── Tool cards ── */
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .tool-card {
+    background: var(--bg);
+    padding: 2.5rem;
+    transition: background 0.3s;
+    cursor: default;
+  }
+
+  .tool-card:hover { background: var(--bg2); }
+
+  .tool-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+
+  .tool-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+
+  .tool-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.7rem;
+    border-radius: 100px;
+    border: 1px solid;
+  }
+
+  .tool-card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 0.4rem;
+  }
+
+  .tool-card .subtitle {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.2rem;
+  }
+
+  .tool-card p {
+    font-size: 0.93rem;
+    color: #c8c6c0;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .feature-list li {
+    font-size: 0.85rem;
+    color: var(--muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    line-height: 1.5;
+  }
+
+  .feature-list li::before {
+    content: '→';
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+  }
+
+  /* Accent colours per tool */
+  .joplin .tool-icon { background: rgba(44,137,224,0.12); }
+  .joplin .tool-tag { color: var(--accent-joplin); border-color: rgba(44,137,224,0.3); }
+  .joplin h2 { color: #f0eee8; }
+  .joplin .feature-list li::before { color: var(--accent-joplin); }
+
+  .notion .tool-icon { background: rgba(155,138,251,0.12); }
+  .notion .tool-tag { color: var(--accent-notion); border-color: rgba(155,138,251,0.3); }
+  .notion h2 { color: #f0eee8; }
+  .notion .feature-list li::before { color: var(--accent-notion); }
+
+  .marp .tool-icon { background: rgba(224,92,44,0.12); }
+  .marp .tool-tag { color: var(--accent-marp); border-color: rgba(224,92,44,0.3); }
+  .marp h2 { color: #f0eee8; }
+  .marp .feature-list li::before { color: var(--accent-marp); }
+
+  /* ── Workflow section ── */
+  .flow-section {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .flow-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .flow-step {
+    background: var(--bg2);
+    padding: 2rem 1.5rem;
+    position: relative;
+  }
+
+  .flow-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3rem;
+    font-weight: 400;
+    opacity: 0.07;
+    position: absolute;
+    top: 1rem; right: 1.2rem;
+    line-height: 1;
+  }
+
+  .flow-step h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  .flow-step p {
+    font-size: 0.83rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .flow-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-bottom: 0.75rem;
+  }
+
+  /* ── Tips section ── */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .tip-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+
+  .tip-card .tip-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .tip-card h4 {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .tip-card p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .code-snippet {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: #9b8afb;
+    margin-top: 1rem;
+    overflow-x: auto;
+    white-space: pre;
+    line-height: 1.7;
+  }
+
+  /* ── Comparison table ── */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    font-size: 0.87rem;
+  }
+
+  .compare-table thead th {
+    background: var(--bg2);
+    padding: 1rem 1.5rem;
+    text-align: left;
+    font-weight: 500;
+    font-size: 0.82rem;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.03em;
+  }
+
+  .compare-table tbody tr {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .compare-table tbody tr:last-child { border-bottom: none; }
+
+  .compare-table tbody tr:hover { background: var(--bg2); }
+
+  .compare-table td {
+    padding: 0.9rem 1.5rem;
+    color: var(--muted);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+
+  .compare-table td:first-child {
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  .check { color: #3db87a; font-size: 1rem; }
+  .cross { color: #888; font-size: 1rem; }
+  .partial { color: #e8c55a; font-size: 0.8rem; }
+
+  /* ── Footer ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    padding: 3rem 8vw;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  footer p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  .footer-stack {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer-stack a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    transition: color 0.2s;
+  }
+
+  .footer-stack a:hover { color: var(--text); }
+
+  /* ── Divider ── */
+  .divider {
+    position: relative;
+    z-index: 1;
+    border: none;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── Nav ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 8vw;
+    background: rgba(14,14,16,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-brand {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--text);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  /* ── Big quote ── */
+  .quote-section {
+    padding: 6rem 8vw;
+    position: relative;
+    z-index: 1;
+  }
+
+  .big-quote {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-style: italic;
+    line-height: 1.3;
+    font-weight: 400;
+    color: rgba(240,238,232,0.6);
+    max-width: 800px;
+  }
+
+  .big-quote strong {
+    color: var(--text);
+    font-style: normal;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">TechStack</span>
+  <div class="nav-links">
+    <a href="#tools">Tools</a>
+    <a href="#workflow">Workflow</a>
+    <a href="#tips">Tips</a>
+    <a href="#compare">Compare</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="eyebrow">Personal knowledge system · 2025</p>
+  <h1>Write, think,<br><em>present.</em></h1>
+  <p>A curated stack for capturing ideas, organising knowledge, and delivering polished presentations — all in Markdown.</p>
+  <div class="hero-pills">
+    <span class="pill">Joplin</span>
+    <span class="pill">Notion</span>
+    <span class="pill">Marp</span>
+    <span class="pill">Markdown</span>
+    <span class="pill">Git</span>
+  </div>
+  <span class="scroll-hint">↓ scroll to explore</span>
+</section>
+
+<hr class="divider">
+
+<!-- QUOTE -->
+<section class="quote-section">
+  <p class="big-quote">
+    Every tool serves a purpose —
+    <strong>capture raw,</strong> refine collaboratively,
+    <strong>present elegantly.</strong>
+  </p>
+</section>
+
+<!-- TOOLS -->
+<section class="section" id="tools">
+  <p class="section-label">01 &nbsp; The tools</p>
+
+  <div class="tool-grid">
+
+    <!-- Joplin -->
+    <div class="tool-card joplin">
+      <div class="tool-header">
+        <div class="tool-icon">📓</div>
+        <span class="tool-tag">OPEN SOURCE</span>
+      </div>
+      <h2>Joplin</h2>
+      <p class="subtitle">markdown notes · end-to-end encrypted · local-first</p>
+      <p>Your private, offline-first notebook. Joplin stores notes as Markdown files you own entirely, with optional E2E-encrypted sync via Dropbox, OneDrive, or a self-hosted server. Perfect for raw captures, personal journals, and reference material you never want locked in a vendor's cloud.</p>
+      <ul class="feature-list">
+        <li>End-to-end encryption at rest and in transit</li>
+        <li>Plugin ecosystem — backlinks, kanban, rich editor</li>
+        <li>Web clipper to save pages directly into notebooks</li>
+        <li>Full-text search with tags and notebooks hierarchy</li>
+        <li>Sync via Joplin Cloud, Dropbox, WebDAV, or S3</li>
+        <li>Export to PDF, HTML, or raw Markdown at any time</li>
+      </ul>
+    </div>
+
+    <!-- Notion -->
+    <div class="tool-card notion">
+      <div class="tool-header">
+        <div class="tool-icon">🗂️</div>
+        <span class="tool-tag">CONNECTED</span>
+      </div>
+      <h2>Notion</h2>
+      <p class="subtitle">workspace · databases · team collaboration</p>
+      <p>The connective tissue of projects and teams. Notion's block-based editor pairs with relational databases, views (table, board, calendar, gallery), and real-time collaboration. Use it for project wikis, roadmaps, meeting notes that need to link back to tasks, or any structured knowledge that benefits from multiple views.</p>
+      <ul class="feature-list">
+        <li>Relational databases with linked views and filters</li>
+        <li>Templates for projects, CRMs, content calendars</li>
+        <li>Notion AI for summarising, drafting, and Q&A</li>
+        <li>Share pages publicly with a single link</li>
+        <li>API for automations and external integrations</li>
+        <li>Team comments, mentions, and version history</li>
+      </ul>
+    </div>
+
+    <!-- Marp -->
+    <div class="tool-card marp">
+      <div class="tool-header">
+        <div class="tool-icon">🖥️</div>
+        <span class="tool-tag">CLI + VSCODE</span>
+      </div>
+      <h2>Marp</h2>
+      <p class="subtitle">markdown → slides · HTML · PDF · PPTX</p>
+      <p>Turn Markdown into stunning presentation decks without ever leaving your editor. Marp renders slides via a thin layer of fenced directives on top of standard Markdown. Write content fast, version control your decks in Git, and export to HTML for the web, PDF for sharing, or PPTX for Office compatibility.</p>
+      <ul class="feature-list">
+        <li>Write slides in pure Markdown with front-matter directives</li>
+        <li>Built-in themes — default, gaia, uncover — plus custom CSS</li>
+        <li>VS Code extension with hot-reload preview</li>
+        <li>CLI: <code style="font-family:'DM Mono';font-size:0.78em;color:var(--accent-marp);">marp slides.md --html --pdf</code></li>
+        <li>Export to HTML, PDF, and PPTX from one source file</li>
+        <li>Git-diffable source — no binary PPTX in your repo</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- WORKFLOW -->
+<section class="section flow-section" id="workflow">
+  <p class="section-label">02 &nbsp; Workflow</p>
+
+  <div class="flow-grid">
+
+    <div class="flow-step">
+      <span class="flow-num">1</span>
+      <div class="flow-dot" style="background:var(--accent-joplin)"></div>
+      <h3>Capture in Joplin</h3>
+      <p>Clip articles, jot fleeting thoughts, and log meeting minutes using the web clipper or mobile app. Everything lands in your Inbox notebook.</p>
+    </div>
+
+    <div class="flow-step">
+      <span class="flow-num">2</span>
+      <div class="flow-dot" style="background:#e8c55a"></div>
+      <h3>Process & organise</h3>
+      <p>Review your inbox daily. Tag notes, assign to notebooks, link related ideas with [[backlinks]]. Distil raw captures into atomic notes.</p>
+    </div>
+
+    <div class="flow-step">
+      <span class="flow-num">3</span>
+      <div class="flow-dot" style="background:var(--accent-notion)"></div>
+      <h3>Structure in Notion</h3>
+      <p>For project-level knowledge, move refined notes to Notion databases. Link tasks, wikis, and roadmaps together. Collaborate with teammates.</p>
+    </div>
+
+    <div class="flow-step">
+      <span class="flow-num">4</span>
+      <div class="flow-dot" style="background:var(--accent-marp)"></div>
+      <h3>Present with Marp</h3>
+      <p>When a presentation is needed, draft slides in Markdown from your existing notes. Commit to Git. Export to PDF or HTML for delivery.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- TIPS -->
+<section class="section" id="tips">
+  <p class="section-label">03 &nbsp; Tips & snippets</p>
+
+  <div class="tips-grid">
+
+    <div class="tip-card">
+      <p class="tip-label" style="color:var(--accent-joplin)">Joplin</p>
+      <h4>Backlinks plugin</h4>
+      <p>Install the Joplin Backlinks plugin to get a panel showing every note that links to the current one — turning your notebook into a personal wiki.</p>
+      <div class="code-snippet">[[Note Title]]
+// creates a backlink</div>
+    </div>
+
+    <div class="tip-card">
+      <p class="tip-label" style="color:var(--accent-joplin)">Joplin</p>
+      <h4>External sync via WebDAV</h4>
+      <p>Self-host Joplin sync with Nextcloud or any WebDAV server. Go to Tools → Options → Synchronisation and paste your WebDAV URL.</p>
+    </div>
+
+    <div class="tip-card">
+      <p class="tip-label" style="color:var(--accent-notion)">Notion</p>
+      <h4>Linked databases</h4>
+      <p>Create a "master tasks" database and embed filtered linked views in each project page. One source of truth, many contextual views.</p>
+    </div>
+
+    <div class="tip-card">
+      <p class="tip-label" style="color:var(--accent-notion)">Notion</p>
+      <h4>Import from Joplin</h4>
+      <p>Export Joplin notes as Markdown, then import the folder into Notion via Settings → Import → Text &amp; Markdown. Formatting is preserved.</p>
+    </div>
+
+    <div class="tip-card">
+      <p class="tip-label" style="color:var(--accent-marp)">Marp</p>
+      <h4>Custom theme in one file</h4>
+      <p>Add a <code style="font-family:'DM Mono';font-size:0.78em;color:var(--accent-marp);">style</code> block at the top of your Marp file to override theme CSS without creating a separate file.</p>
+      <div class="code-snippet">---
+marp: true
+theme: default
+---
+&lt;style&gt;
+section { background: #0e0e10; color: white; }
+&lt;/style&gt;</div>
+    </div>
+
+    <div class="tip-card">
+      <p class="tip-label" style="color:var(--accent-marp)">Marp</p>
+      <h4>GitHub Actions auto-export</h4>
+      <p>Use the <code style="font-family:'DM Mono';font-size:0.78em;color:var(--accent-marp);">marp-action</code> GitHub Action to auto-export PDF slides on every push to <code style="font-family:'DM Mono';font-size:0.78em;color:var(--accent-marp);">main</code>.</p>
+      <div class="code-snippet">- uses: marp-team/marp-action@v2
+  with:
+    input: slides.md
+    output: slides.pdf</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section class="section" id="compare">
+  <p class="section-label">04 &nbsp; Feature comparison</p>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Joplin</th>
+        <th>Notion</th>
+        <th>Marp</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Markdown-native</td>
+        <td><span class="check">✓</span> Full</td>
+        <td><span class="partial">≈</span> Block-based, limited raw MD</td>
+        <td><span class="check">✓</span> Pure Markdown</td>
+      </tr>
+      <tr>
+        <td>Offline / local-first</td>
+        <td><span class="check">✓</span> Yes</td>
+        <td><span class="cross">✗</span> Cloud-only</td>
+        <td><span class="check">✓</span> Yes (CLI)</td>
+      </tr>
+      <tr>
+        <td>Collaboration</td>
+        <td><span class="cross">✗</span> Solo</td>
+        <td><span class="check">✓</span> Real-time multi-user</td>
+        <td><span class="partial">≈</span> Via Git</td>
+      </tr>
+      <tr>
+        <td>End-to-end encryption</td>
+        <td><span class="check">✓</span> Built-in</td>
+        <td><span class="cross">✗</span> Server-side only</td>
+        <td><span class="check">✓</span> N/A (local files)</td>
+      </tr>
+      <tr>
+        <td>Presentation output</td>
+        <td><span class="cross">✗</span> No</td>
+        <td><span class="partial">≈</span> Basic embed</td>
+        <td><span class="check">✓</span> HTML / PDF / PPTX</td>
+      </tr>
+      <tr>
+        <td>Database / structured views</td>
+        <td><span class="cross">✗</span> No</td>
+        <td><span class="check">✓</span> Relational DBs</td>
+        <td><span class="cross">✗</span> No</td>
+      </tr>
+      <tr>
+        <td>Open source</td>
+        <td><span class="check">✓</span> MIT</td>
+        <td><span class="cross">✗</span> Proprietary</td>
+        <td><span class="check">✓</span> MIT</td>
+      </tr>
+      <tr>
+        <td>Free tier</td>
+        <td><span class="check">✓</span> Fully free</td>
+        <td><span class="check">✓</span> Limited free plan</td>
+        <td><span class="check">✓</span> Fully free</td>
+      </tr>
+      <tr>
+        <td>Git version control</td>
+        <td><span class="partial">≈</span> Manual export</td>
+        <td><span class="cross">✗</span> No</td>
+        <td><span class="check">✓</span> Native — plain text files</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 · Personal tech stack reference</p>
+  <div class="footer-stack">
+    <a href="https://joplinapp.org" target="_blank">joplinapp.org</a>
+    <a href="https://notion.so" target="_blank">notion.so</a>
+    <a href="https://marp.app" target="_blank">marp.app</a>
+  </div>
+</footer>
+
+</body>
+</html>

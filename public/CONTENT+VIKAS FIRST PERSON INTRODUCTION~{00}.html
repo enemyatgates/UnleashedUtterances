@@ -1,0 +1,262 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap');
+
+  .intro-wrap {
+    font-family: 'Inter', sans-serif;
+    color: var(--color-text-primary);
+    max-width: 680px;
+    padding: 3rem 2rem 4rem;
+    position: relative;
+  }
+
+  .rule-top {
+    width: 40px;
+    height: 1px;
+    background: var(--color-text-primary);
+    margin-bottom: 2.5rem;
+    opacity: 0.4;
+  }
+
+  .name-block {
+    margin-bottom: 2.5rem;
+  }
+
+  .name-primary {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    line-height: 1.15;
+    color: var(--color-text-primary);
+    margin: 0 0 0.75rem;
+  }
+
+  .name-aliases {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 1rem;
+  }
+
+  .alias-pill {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border: 0.5px solid var(--color-border-secondary);
+    border-radius: 100px;
+    color: var(--color-text-secondary);
+  }
+
+  .section {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    margin-bottom: 1rem;
+  }
+
+  .body-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--color-text-primary);
+    margin: 0 0 1rem;
+  }
+
+  .body-text em {
+    font-style: italic;
+  }
+
+  .divider {
+    width: 100%;
+    height: 0.5px;
+    background: var(--color-border-tertiary);
+    margin: 2rem 0;
+  }
+
+  .themes-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .theme-tag {
+    font-size: 12px;
+    font-weight: 400;
+    padding: 5px 14px;
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-md);
+    color: var(--color-text-secondary);
+    background: var(--color-background-secondary);
+  }
+
+  .projects-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-top: 0.5rem;
+  }
+
+  .project-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 1rem 1.1rem;
+  }
+
+  .project-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin: 0 0 4px;
+    line-height: 1.35;
+  }
+
+  .project-desc {
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .closing-block {
+    border-left: 1.5px solid var(--color-border-secondary);
+    padding-left: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .closing-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .rule-bottom {
+    width: 40px;
+    height: 1px;
+    background: var(--color-text-primary);
+    margin-top: 3rem;
+    opacity: 0.2;
+  }
+</style>
+
+<div class="intro-wrap">
+  <h2 class="sr-only">First-person introduction of Vikas Chandra Thorian</h2>
+
+  <div class="rule-top"></div>
+
+  <div class="name-block">
+    <p class="name-primary">I am Vikas Chandra Thorian.</p>
+    <p style="font-size:14px; color:var(--color-text-secondary); margin:0 0 0.75rem; line-height:1.6;">Depending on the layer of reality I am operating within, you may also know me as:</p>
+    <div class="name-aliases">
+      <span class="alias-pill">Xander Amgine Thorian</span>
+      <span class="alias-pill">Xandra Amgine Thorian</span>
+      <span class="alias-pill">Nyxara Amgine Veyran</span>
+      <span class="alias-pill">Kabootar Modnar Thorian</span>
+      <span class="alias-pill">Modnar</span>
+    </div>
+    <p style="font-size:13px; color:var(--color-text-tertiary); margin-top:0.75rem; line-height:1.6;">None of these names are accidental. Each one is a different operational layer — of thought, philosophy, strategy, emotion, narrative, identity.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <p class="section-label">On what I am</p>
+    <p class="body-text">I am not simply a founder. Not a writer, a technologist, a consultant, or a philosopher. I operate at the intersection of all of them — and at the uncomfortable edges where none of those labels hold.</p>
+    <p class="body-text">I read obsessively. I research compulsively. I think systemically. I build ideas that refuse to stay inside a single discipline.</p>
+  </div>
+
+  <div class="section">
+    <p class="section-label">What I work with</p>
+    <div class="themes-grid">
+      <span class="theme-tag">Loneliness</span>
+      <span class="theme-tag">Ambition</span>
+      <span class="theme-tag">Emotional realism</span>
+      <span class="theme-tag">Survival</span>
+      <span class="theme-tag">Civilisation</span>
+      <span class="theme-tag">Identity</span>
+      <span class="theme-tag">Mythology</span>
+      <span class="theme-tag">Systems thinking</span>
+      <span class="theme-tag">Behavioural psychology</span>
+      <span class="theme-tag">Human contradiction</span>
+      <span class="theme-tag">Burden of awareness</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <p class="section-label">What I refuse</p>
+    <p class="body-text">I have no patience for shallow optimism. I distrust performative morality. I find intellectual theatre dressed as wisdom genuinely offensive.</p>
+    <p class="body-text">What I value instead: precision, strategic thinking, emotional authenticity, existential honesty, layered analysis — and ideas that survive scrutiny rather than applause.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <p class="section-label">What I am building</p>
+    <div class="projects-list">
+      <div class="project-card">
+        <p class="project-name">Project Black Rose</p>
+        <p class="project-desc">Generational architecture for resilience, strategy, and survival.</p>
+      </div>
+      <div class="project-card">
+        <p class="project-name">Reverie</p>
+        <p class="project-desc">Emotional intelligence, loneliness, and ritualised connection.</p>
+      </div>
+      <div class="project-card">
+        <p class="project-name">The Oracle's Dilemma</p>
+        <p class="project-desc">Foresight, strategic loneliness, and the burden of intelligence.</p>
+      </div>
+      <div class="project-card">
+        <p class="project-name">The Grand Indian Republic</p>
+        <p class="project-desc">A civilisational manifesto for subcontinental unification.</p>
+      </div>
+      <div class="project-card">
+        <p class="project-name">Corporate Ocean Taxonomy</p>
+        <p class="project-desc">Abyss, Crystal, Labyrinth, and Scorched Oceans — beyond Blue.</p>
+      </div>
+      <div class="project-card">
+        <p class="project-name">Ytsief Ventures</p>
+        <p class="project-desc">The primary helm. One core, 18 ventures across three layers.</p>
+      </div>
+      <div class="project-card">
+        <p class="project-name">Whiskey with Madhav</p>
+        <p class="project-desc">Silence poured into glass. Conversation with God.</p>
+      </div>
+      <div class="project-card">
+        <p class="project-name">The Last Bastard</p>
+        <p class="project-desc">Watching civilisation collapse. Refusing to collapse with it.</p>
+      </div>
+    </div>
+    <p style="font-size:13px; color:var(--color-text-tertiary); margin-top:1rem; line-height:1.6;">Most of these are not merely businesses. They are philosophical frameworks, emotional architectures, civilisational thought experiments — narrative weapons wearing the clothes of ventures.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <p class="section-label">How to engage with me</p>
+    <p class="body-text">Come ready to go deep. Challenge intelligently. Recognise that there is emotional subtext underneath the strategic scaffolding. Think in systems. Leave the motivational language at the door.</p>
+    <p class="body-text">The conversation I want feels like midnight philosophy in an empty bar, or a classified briefing between two people who have stopped pretending the situation is simpler than it is.</p>
+  </div>
+
+  <div class="closing-block">
+    <p class="closing-text">I often build from pain.<br>But I refine through structure.</p>
+    <p class="closing-text" style="margin-top:1.25rem;">I am not merely trying to build projects.<br>I am trying to build systems of meaning<br>strong enough to survive reality itself.</p>
+  </div>
+
+  <div class="rule-bottom"></div>
+</div>
